@@ -1,7 +1,7 @@
 
 let randomNumber;
 let inputField;
-let previousGuess = 1;
+let previousGuess = 50;
 let results;
 
 let result = "";
