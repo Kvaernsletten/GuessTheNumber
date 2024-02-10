@@ -1,22 +1,27 @@
-updateView();
+
 let randomNumber;
-let inputField = document.getElementById('inputField');
-let results = document.getElementById('results');
+let inputField;
+let previousGuess = 1;
+let results;
+
+let result = "";
+let resultClass;
 
 generateNumber();
+updateView();
 
 function updateView(){
+
 
     document.getElementById('app').innerHTML = /*HTML*/`
     
     <h1>Guess the number I am thinking of between 1 and 100</h1>
     <div class="container">
-        <input id="inputField" type="number" max="100" min="1">
+        <input id="inputField" type="number" max="100" min="1" placeholder="50" value="${previousGuess}">
         <button onclick="guess()">Guess</button>
     </div>
-    <h2 id="results"></h2>
+    <h2 id="results" class=${resultClass}>${result}</h2>
     `;
-
 }
 
 function generateNumber(){
@@ -25,21 +30,26 @@ function generateNumber(){
 }
 
 function guess(){
-    console.log(inputField.value)
+    inputField = document.getElementById('inputField');
+    results = document.getElementById('results');
+    previousGuess = inputField.value;
+    inputField.value = previousGuess;
+
     if(inputField.value == randomNumber){
         console.log('correct!')
-        results.innerHTML = `${inputField.value} is correct!`;
-        results.style.color = 'green';
+        result = `${inputField.value} is correct!`;
+        resultClass = "green";
         generateNumber();
     }
     else if(inputField.value > randomNumber){
         console.log('number too high, try again!')
-        results.innerHTML = `${inputField.value} is too high, try again!`;
-        results.style.color = '';
+        result = `${inputField.value} is too high, try again!`;
+        resultClass = "";
     }
     else{
         console.log('number too low, go higher!')
-        results.innerHTML = `${inputField.value} is too low, go higher!`;
-        results.style.color = '';
+        result = `${inputField.value} is too low, go higher!`;
+        resultClass = "";
     }
+    updateView();
 }
